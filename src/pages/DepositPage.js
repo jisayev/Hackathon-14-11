@@ -23,6 +23,8 @@ function DepositPage() {
     });
   };
 
+  const amount = 5000;
+
   const history = useNavigate();
 
   const handleNext = () => {
@@ -58,7 +60,7 @@ function DepositPage() {
   return (
     <div>
       <h2>Deposit Page</h2>
-      <p>Your maximum borrowing is £xxx,xxx</p>
+      <p>Your maximum borrowing is £{amount}</p>
 
       <div>
         <p>What is the deposit amount?</p>

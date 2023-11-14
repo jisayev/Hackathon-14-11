@@ -3,123 +3,95 @@
 import React, { useState } from "react";
 import { useDrop, useDrag } from "react-dnd";
 
-const Box = ({ id, text, index, moveBox }) => {
-  const [{ isDragging }, drag, dragPreview] = useDrag({
-    type: "box",
-    item: { id, index },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-  const [, drop] = useDrop({
-    accept: "box",
-    hover: (item, monitor) => {
-      if (!dragRef.current) {
-        return;
-      }
-
-      const dragIndex = item.index;
-      const hoverIndex = index;
-
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-
-      const hoverBoundingRect = dragRef.current.getBoundingClientRect();
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
-
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
-
-      item.index = hoverIndex;
-      moveBox(dragIndex, hoverIndex);
-    },
-  });
-
-  const dragRef = React.useRef(null);
-  drag(dragRef);
+const TableComponent = (props) => {
+  // Sample data for the table
+  //   const tableData = [
+  //     {
+  //       id: 1,
+  //       name: "John Doe",
+  //       age: 25,
+  //       city: "New York",
+  //       country: "USA",
+  //       occupation: "Engineer",
+  //     },
+  //     {
+  //       id: 2,
+  //       name: "Jane Smith",
+  //       age: 30,
+  //       city: "London",
+  //       country: "UK",
+  //       occupation: "Designer",
+  //     },
+  //     {
+  //       id: 3,
+  //       name: "Bob Johnson",
+  //       age: 28,
+  //       city: "Berlin",
+  //       country: "Germany",
+  //       occupation: "Developer",
+  //     },
+  //     // Add more data as needed
+  //   ];
 
   return (
-    <div
-      ref={(node) => {
-        dragRef.current = node;
-        dragPreview(node, { captureDraggingState: true });
-        drop(node);
-      }}
-      style={{
-        padding: "8px",
-        border: "1px solid #ddd",
-        marginBottom: "4px",
-        width: "90%", // Fixed pixel width
-        opacity: isDragging ? 0.5 : 1,
-        cursor: "move",
-      }}
-    >
-      {text}
-    </div>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Town</th>
+          <th>Bus</th>
+          <th>Train</th>
+          <th>Restaurants avail. %</th>
+          <th>Bars avail. %</th>
+          <th>Places of Interest</th>
+        </tr>
+      </thead>
+      <tbody>
+        {props.results.map((row) => (
+          <tr key={row.id}>
+            <td>{row.town}</td>
+            <td>{row.bus}</td>
+            <td>{row.train}</td>
+            <td>{row.restaurants}</td>
+            <td>{row.pubs}</td>
+            <td>{row.places}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };
 
 const ContactPage = () => {
-  const [boxes, setBoxes] = useState([
-    { id: 1, text: "Lifestyle" },
-    { id: 2, text: "Family life" },
-    { id: 3, text: "Box 3" },
-    // Add more boxes as needed
-  ]);
-
-  const [results, setResults] = useState([])
-
-  const moveBox = (fromIndex, toIndex) => {
-    const newBoxes = [...boxes];
-    const [movedBox] = newBoxes.splice(fromIndex, 1);
-    newBoxes.splice(toIndex, 0, movedBox);
-    setBoxes(newBoxes);
-  };
+  const [results, setResults] = useState([]);
 
   const handleGetResults = async () => {
-    const response = await fetch('https://getpreferredtowns.azurewebsites.net/api/getPreferredTowns4', {
-      method: 'POST',
-      body: JSON.stringify({
-        "minPrice": "25000",
-        "maxPrice": "3000000",
-        "desiredPostcodes": ["BS16 6TP"]
-      }),
-      headers: {
-        'x-functions-key': 'bLxEjNxjIO-xL72mcq-HpG8QQak0GGfpwLN25pxUCAJYAzFuS47Wag==',
-        Accept: 'application/json',
-        'content-type': 'application/json'
+    const response = await fetch(
+      "https://getpreferredtowns.azurewebsites.net/api/getPreferredTowns4",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          minPrice: "25000",
+          maxPrice: "3000000",
+          desiredPostcodes: ["BS16 6TP"],
+        }),
+        headers: {
+          "x-functions-key":
+            "bLxEjNxjIO-xL72mcq-HpG8QQak0GGfpwLN25pxUCAJYAzFuS47Wag==",
+          Accept: "application/json",
+          "content-type": "application/json",
+        },
       }
-    })
+    );
 
     setResults(await response.json());
-  }
+  };
 
   return (
     <div>
-      <h2>Contact Page</h2>
-      <p>Drag and drop to prioritize boxes:</p>
-
-      {boxes.map((box, index) => (
-        <Box
-          key={box.id}
-          index={index}
-          id={box.id}
-          text={box.text}
-          moveBox={moveBox}
-        />
-      ))}
+      <h2>Your Choices</h2>
+      <TableComponent results={results} />
       <button onClick={handleGetResults}>Get Results</button>
-      {results.length > 0 && results.map(result => <div>{result.town}</div>)}
+      {/* {results.length > 0 && results.map((result) => <div>{result.town}</div>)} */}
     </div>
   );
 };

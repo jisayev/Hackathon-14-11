@@ -5,7 +5,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AnswerProvider } from "./AnswerContext";
 import Deposit from "./pages/DepositPage";
-import TellMeMore from "./pages/TellMeMore";
+import TellMeMore from "./pages/FinalTable";
 import ContactPage from "./pages/ContactPage";
 
 import { DndProvider } from "react-dnd";
