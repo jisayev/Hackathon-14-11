@@ -28,43 +28,19 @@ function TellMeMore() {
       <div>
         <p>Family life:</p>
         <label>
-          <input
-            type="radio"
-            name="question3"
-            value="option1"
-            checked={answers.question3 === "option1"}
-            onChange={() => handleAnswerChange("question3", "option1")}
-          />
+          <input type="checkbox" name="family.schools" />
           Schools
         </label>
         <label>
-          <input
-            type="radio"
-            name="question3"
-            value="option2"
-            checked={answers.question3 === "option2"}
-            onChange={() => handleAnswerChange("question3", "option2")}
-          />
+          <input type="checkbox" name="family.nurseries" />
           Nurseries
         </label>
         <label>
-          <input
-            type="radio"
-            name="question3"
-            value="option3"
-            checked={answers.question3 === "option3"}
-            onChange={() => handleAnswerChange("question3", "option3")}
-          />
+          <input type="checkbox" name="family.parks" />
           Parks
         </label>
         <label>
-          <input
-            type="radio"
-            name="question3"
-            value="option4"
-            checked={answers.question3 === "option4"}
-            onChange={() => handleAnswerChange("question4", "option4")}
-          />
+          <input type="checkbox" name="family.clubs" />
           Clubs/Activities
         </label>
       </div>
@@ -72,44 +48,60 @@ function TellMeMore() {
       <div>
         <p>Lifestyle:</p>
         <label>
-          <input
-            type="radio"
-            name="question4"
-            value="optionA"
-            checked={answers.question4 === "optionA"}
-            onChange={() => handleAnswerChange("question4", "optionA")}
-          />
+          <input type="checkbox" name="lifestyle.restaurants" />
           Restaurants
         </label>
         <label>
-          <input
-            type="radio"
-            name="question4"
-            value="optionB"
-            checked={answers.question4 === "optionB"}
-            onChange={() => handleAnswerChange("question4", "optionB")}
-          />
+          <input type="checkbox" name="lifestyle.pubs" />
           Pubs/Bars
         </label>
         <label>
-          <input
-            type="radio"
-            name="question4"
-            value="optionB"
-            checked={answers.question4 === "optionC"}
-            onChange={() => handleAnswerChange("question4", "optionC")}
-          />
+          <input type="checkbox" name="lifestyle.places" />
           Places of Interest
         </label>
         <label>
-          <input
-            type="radio"
-            name="question4"
-            value="optionB"
-            checked={answers.question4 === "optionD"}
-            onChange={() => handleAnswerChange("question4", "optionD")}
-          />
+          <input type="checkbox" name="lifestyle.things" />
           Things to do
+        </label>
+      </div>
+
+      <div>
+        <p>Travel:</p>
+        <label>
+          <input type="checkbox" name="question4" value="optionA" />
+          Train
+        </label>
+        <label>
+          <input type="checkbox" name="question4" value="optionB" />
+          Bus
+        </label>
+      </div>
+
+      <div>
+        <p>Community:</p>
+        <label>
+          <input type="checkbox" name="question4" value="optionA" />
+          Crime
+        </label>
+        <label>
+          <input type="checkbox" name="question4" value="optionB" />
+          Demographic
+        </label>
+      </div>
+
+      <div>
+        <p>Population Density:</p>
+        <label>
+          <input type="checkbox" name="question4" value="optionA" />
+          High
+        </label>
+        <label>
+          <input type="checkbox" name="question4" value="optionB" />
+          Medium
+        </label>
+        <label>
+          <input type="checkbox" name="question4" value="optionB" />
+          Low
         </label>
       </div>
 

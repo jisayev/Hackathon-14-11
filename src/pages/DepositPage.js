@@ -23,7 +23,7 @@ function DepositPage() {
     });
   };
 
-  const amount = 5000;
+  const amount = "300,000";
 
   const history = useNavigate();
 
@@ -72,27 +72,38 @@ function DepositPage() {
       </div>
 
       <div>
-        <p>Do you have a location in mind?</p>
+        <p>Let's narrow the search:</p>
         <div>
           <label>
             <input
               type="radio"
-              value="Yes"
+              value="Select distance from a location"
               checked={answers.question2 === "Yes"}
               onChange={() => handleAnswerChange("question2", "Yes")}
             />
-            Yes
+            Select distance from a location
           </label>
         </div>
         <div>
           <label>
             <input
               type="radio"
-              value="No"
+              value="Select by region"
               checked={answers.question2 === "No"}
               onChange={() => handleAnswerChange("question2", "No")}
             />
-            No
+            Select by region
+          </label>
+        </div>
+        <div>
+          <label>
+            <input
+              type="radio"
+              value="Anywhere in the UK"
+              checked={answers.question2 === "any"}
+              onChange={() => handleAnswerChange("question2", "any")}
+            />
+            Anywhere in the UK
           </label>
         </div>
       </div>

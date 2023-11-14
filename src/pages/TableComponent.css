@@ -1,0 +1,30 @@
+/* TableComponent.css */
+
+.table-container {
+  margin: 20px;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.styled-table th {
+  background-color: #005eb8;
+}
+
+.styled-table th {
+  color: white;
+}
+
+.property-button {
+  background-color: #005eb8;
+}
