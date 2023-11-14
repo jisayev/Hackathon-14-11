@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAnswerContext } from "../AnswerContext";
 
+const maxBorrowing = 300000;
+const formatter = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' });
+
 function DepositPage() {
   const { answers, updateAnswers } = useAnswerContext();
 
@@ -58,7 +61,7 @@ function DepositPage() {
   return (
     <div>
       <h2>Deposit Page</h2>
-      <p>Your maximum borrowing is £xxx,xxx</p>
+      <p>Your maximum borrowing is {formatter.format(maxBorrowing)}</p>
 
       <div>
         <p>What is the deposit amount?</p>
@@ -68,6 +71,10 @@ function DepositPage() {
           onChange={(e) => handleAnswerChange("question1", e.target.value)}
         />
       </div>
+
+        {answers['question1'] && <div style={{marginTop: '25px'}}>
+            That means you can borrow a property up to a value of <strong>{formatter.format(maxBorrowing + parseInt(answers['question1']))}</strong>
+        </div>}
 
       <div>
         <p>Do you have a location in mind?</p>
@@ -114,48 +121,48 @@ function DepositPage() {
         </div>
       )}
 
-      {answers.question2 === "No" && (
-        <div>
-          <p>No worries! Please select one or more counties and towns:</p>
-          {englandCounties.map((county) => (
-            <div key={county.name}>
-              <input
-                type="checkbox"
-                id={county.name}
-                checked={selectedCounties.includes(county.name)}
-                onChange={() => {
-                  const updatedCounties = selectedCounties.includes(county.name)
-                    ? selectedCounties.filter((c) => c !== county.name)
-                    : [...selectedCounties, county.name];
+      {/*{answers.question2 === "No" && (*/}
+      {/*  <div>*/}
+      {/*    <p>No worries! Please select one or more counties and towns:</p>*/}
+      {/*    {englandCounties.map((county) => (*/}
+      {/*      <div key={county.name}>*/}
+      {/*        <input*/}
+      {/*          type="checkbox"*/}
+      {/*          id={county.name}*/}
+      {/*          checked={selectedCounties.includes(county.name)}*/}
+      {/*          onChange={() => {*/}
+      {/*            const updatedCounties = selectedCounties.includes(county.name)*/}
+      {/*              ? selectedCounties.filter((c) => c !== county.name)*/}
+      {/*              : [...selectedCounties, county.name];*/}
 
-                  setSelectedCounties(updatedCounties);
-                }}
-              />
-              <label htmlFor={county.name}>{county.name}</label>
+      {/*            setSelectedCounties(updatedCounties);*/}
+      {/*          }}*/}
+      {/*        />*/}
+      {/*        <label htmlFor={county.name}>{county.name}</label>*/}
 
-              <div style={{ marginLeft: "20px" }}>
-                {county.towns.map((town) => (
-                  <div key={town}>
-                    <input
-                      type="checkbox"
-                      id={town}
-                      checked={selectedTowns.includes(town)}
-                      onChange={() => {
-                        const updatedTowns = selectedTowns.includes(town)
-                          ? selectedTowns.filter((t) => t !== town)
-                          : [...selectedTowns, town];
+      {/*        <div style={{ marginLeft: "20px" }}>*/}
+      {/*          {county.towns.map((town) => (*/}
+      {/*            <div key={town}>*/}
+      {/*              <input*/}
+      {/*                type="checkbox"*/}
+      {/*                id={town}*/}
+      {/*                checked={selectedTowns.includes(town)}*/}
+      {/*                onChange={() => {*/}
+      {/*                  const updatedTowns = selectedTowns.includes(town)*/}
+      {/*                    ? selectedTowns.filter((t) => t !== town)*/}
+      {/*                    : [...selectedTowns, town];*/}
 
-                        setSelectedTowns(updatedTowns);
-                      }}
-                    />
-                    <label htmlFor={town}>{town}</label>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+      {/*                  setSelectedTowns(updatedTowns);*/}
+      {/*                }}*/}
+      {/*              />*/}
+      {/*              <label htmlFor={town}>{town}</label>*/}
+      {/*            </div>*/}
+      {/*          ))}*/}
+      {/*        </div>*/}
+      {/*      </div>*/}
+      {/*    ))}*/}
+      {/*  </div>*/}
+      {/*)}*/}
 
       <button
         onClick={handleNext}
