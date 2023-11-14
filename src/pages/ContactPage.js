@@ -77,12 +77,32 @@ const ContactPage = () => {
     // Add more boxes as needed
   ]);
 
+  const [results, setResults] = useState([])
+
   const moveBox = (fromIndex, toIndex) => {
     const newBoxes = [...boxes];
     const [movedBox] = newBoxes.splice(fromIndex, 1);
     newBoxes.splice(toIndex, 0, movedBox);
     setBoxes(newBoxes);
   };
+
+  const handleGetResults = async () => {
+    const response = await fetch('https://getpreferredtowns.azurewebsites.net/api/getPreferredTowns4', {
+      method: 'POST',
+      body: JSON.stringify({
+        "minPrice": "25000",
+        "maxPrice": "3000000",
+        "desiredPostcodes": ["BS16 6TP"]
+      }),
+      headers: {
+        'x-functions-key': 'bLxEjNxjIO-xL72mcq-HpG8QQak0GGfpwLN25pxUCAJYAzFuS47Wag==',
+        Accept: 'application/json',
+        'content-type': 'application/json'
+      }
+    })
+
+    setResults(await response.json());
+  }
 
   return (
     <div>
@@ -98,6 +118,8 @@ const ContactPage = () => {
           moveBox={moveBox}
         />
       ))}
+      <button onClick={handleGetResults}>Get Results</button>
+      {results.length > 0 && results.map(result => <div>{result.town}</div>)}
     </div>
   );
 };
